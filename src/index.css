@@ -1,0 +1,15 @@
+/* src/styles/index.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Your custom styles go here */
+:root {
+  --font-sans: 'Inter', sans-serif;
+
+}
+html, body{
+    font-family: var(--font-sans);
+}
+
+
