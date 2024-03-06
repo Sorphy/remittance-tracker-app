@@ -10,6 +10,7 @@ export default {
       buttonHover: "#BBF7D0",
       buttonTxtHov: "052E16",
       tableTopText: "#3F6212",
+      cancel: "red",
     },
     extend: {},
   },

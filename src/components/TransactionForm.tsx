@@ -9,6 +9,7 @@ import Button from "./Button";
 import InputField from "./FormField/InputField/InputField";
 import DateField from "./FormField/DateField/DateField";
 import { formattedDate } from "../utils/dateFormat";
+import { v4 as uuidv4 } from 'uuid';
 
 const TransactionForm: FC = () => {
     const [isFileCreated, setIsFileCreated] = useState(false);
@@ -36,14 +37,22 @@ const onSubmit = (data: TTransactionSchema) => {
         const currentDate = new Date();
         const formattedCurrentDate = formattedDate(currentDate.toISOString());
       const newData = {
+        id: uuidv4() as string,
         ...data,
         createdAt: formattedCurrentDate,
         updatedAt: formattedCurrentDate,
       };
+
+      // Append the new transaction data
       const updatedData = [...existingData, newData];
+      // Write the updated data back to localStorage
       localStorage.setItem("transactions", JSON.stringify(updatedData));
+
+      // Set the file creation status to true
         setIsFileCreated(true);
         console.log(updatedData);
+
+      // Reset the form
       methods.reset();
     } catch (error) {
     console.error("Error:", error);
@@ -52,15 +61,15 @@ const onSubmit = (data: TTransactionSchema) => {
     
   return (
     <FormProvider {...methods}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={methods.handleSubmit(onSubmit)}>
         <DateField label="Date" name="date" />
         <div>
-          <label htmlFor="category" className="block mb-1 text-md">
+          <label htmlFor="category" className="block mb-1 text-sky-950 text-md">
             Category:
           </label>
           <select
             id="category"
-            className="pl-2 pr-8 border  text-sm rounded block w-full px-4 py-2 "
+            className="pl-2 pr-8 border border-sky-950 text-sm rounded block w-full px-4 py-2 "
             {...methods.register("category")}
           >
             <option value="personal">Personal</option>
@@ -80,14 +89,13 @@ const onSubmit = (data: TTransactionSchema) => {
           name="recipientAccountNo"
         />
         <InputField type="number" name="amount" label="Amount (₦)" />
-      </form>
       <Button
-        className="mt-6"
+        type="submit"
         disabled={isFileCreated}
-        onClick={methods.handleSubmit(onSubmit)}
       >
         Add Transaction
       </Button>
+      </form>
     </FormProvider>
   );
 };

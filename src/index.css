@@ -1,15 +1,27 @@
 /* src/styles/index.css */
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* Your custom styles go here */
 :root {
-  --font-sans: 'Inter', sans-serif;
-
+  --font-sans: "Inter", sans-serif;
 }
-html, body{
-    font-family: var(--font-sans);
+html,
+body {
+  font-family: var(--font-sans);
 }
 
-
+.modal {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 400px; 
+  background-color: white; 
+  /* color: white; */
+  padding: 20px; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}

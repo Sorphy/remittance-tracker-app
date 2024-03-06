@@ -4,4 +4,6 @@ export interface InputFieldProps {
   name: string;
   placeholder?: string;
   className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

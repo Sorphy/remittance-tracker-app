@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { DateFieldProps } from "./DateFieldProps";
 import { useFormContext } from "react-hook-form";
-import { format } from "date-fns";
+import { formattedDate } from "../../../utils/dateFormat";
 
 const DateField = (props: DateFieldProps) => {
   const { label, name, className } = props;
@@ -10,10 +10,6 @@ const DateField = (props: DateFieldProps) => {
     formState: { defaultValues },
   } = useFormContext();
 
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return format(date, "yyyy-MM-dd");
-  };
   const defaultValue = defaultValues?.[name] || "";
   return (
     <div className={clsx(className)}>
@@ -23,11 +19,11 @@ const DateField = (props: DateFieldProps) => {
         </label>
       )}
       <input
-        id={name}
+        id="date"
         type="date"
         className="border text-sm rounded block w-full px-3 py-2 "
         {...register(name)}
-        defaultValue={formatDate(defaultValue)}
+        defaultValue={formattedDate(defaultValue)}
       />
     </div>
   );

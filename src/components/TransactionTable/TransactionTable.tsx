@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { TTransactionSchema } from "../../schemas/transactionSchema";
 import { EditIcon } from "../../assets/svg";
-// import { formattedDate } from "../../utils/dateFormat";
+import EditTransactionModal from "../EditTransactionTable/EditTransactionModal";
 
 const TransactionTable: FC = () => {
   const [transactions, setTransactions] = useState<TTransactionSchema[]>([]);
@@ -10,10 +10,9 @@ const TransactionTable: FC = () => {
     TTransactionSchema[]
   >([]);
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
-  const [selectedTransaction, setSelectedTransaction] =
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [transactionToEdit, setTransactionToEdit] =
     useState<TTransactionSchema | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   useEffect(() => {
     // Fetch transactions from localStorage
@@ -37,8 +36,9 @@ const TransactionTable: FC = () => {
     }
   };
 
-  const handleEditButtonClick = (transaction: TTransactionSchema) => {
-    setIsModalOpen(true);
+  const handleEditClick = (transaction: TTransactionSchema) => {
+    setTransactionToEdit(transaction);
+    setIsEditModalOpen(true);
   };
 
   const customStyles = {
@@ -98,7 +98,7 @@ const TransactionTable: FC = () => {
     {
       name: "Action", // Action column for editing
       cell: (row: TTransactionSchema) => (
-        <button onClick={() => handleEditButtonClick(row)}>
+        <button onClick={() => handleEditClick(row)}>
           <EditIcon />
         </button>
       ),
@@ -137,8 +137,13 @@ const TransactionTable: FC = () => {
           customStyles={customStyles}
         />
       </div>
-      {/* {isModalOpen && (
-      )} */}
+      {isEditModalOpen && (
+      <EditTransactionModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        transactionData={transactionToEdit}
+      />
+      )}
     </div>
   );
 };

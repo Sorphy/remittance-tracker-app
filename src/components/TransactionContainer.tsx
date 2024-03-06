@@ -15,7 +15,9 @@ const TransactionContainer: FC<ClassName> = ({ children }) => {
             Add New Transaction
           </h1>
           <Link to="/transactions">
-            <Button className="px-6 py-3">View All Transactions</Button>
+            <Button className="px-6 py-3  bg-container">
+              View All Transactions
+            </Button>
           </Link>
         </div>
         <div className=" w-full">{children}</div>
