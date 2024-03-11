@@ -9,12 +9,11 @@ import Button from "./Button";
 import InputField from "./FormField/InputField/InputField";
 import DateField from "./FormField/DateField/DateField";
 import { formattedDate } from "../utils/dateFormat";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 
-
 const TransactionForm: FC = () => {
-    const [isFileCreated, setIsFileCreated] = useState(false);
+  const [isFileCreated, setIsFileCreated] = useState(false);
 
   const methods = useForm<TTransactionSchema>({
     resolver: zodResolver(transactionSchema),
@@ -30,15 +29,15 @@ const TransactionForm: FC = () => {
     },
   });
 
-const onSubmit = (data: TTransactionSchema) => {
+  const onSubmit = (data: TTransactionSchema) => {
     try {
       // Read existing data from localStorage if it exists
       let existingData: TTransactionSchema[] = JSON.parse(
         localStorage.getItem("transactions") || "[]"
       );
 
-        const currentDate = new Date();
-        const formattedCurrentDate = formattedDate(currentDate.toISOString());
+      const currentDate = new Date();
+      const formattedCurrentDate = formattedDate(currentDate.toISOString());
       const newData = {
         // id: uuidv4() as string,
         ...data,
@@ -52,22 +51,25 @@ const onSubmit = (data: TTransactionSchema) => {
       localStorage.setItem("transactions", JSON.stringify(updatedData));
 
       // Set the file creation status to true
-        setIsFileCreated(true);
-        console.log(updatedData);
+      setIsFileCreated(true);
+      console.log(updatedData);
       toast.success("Transaction added successfully");
       // Reset the form
       methods.reset();
     } catch (error) {
-    console.error("Error:", error);
-  }
-};
-    
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <FormProvider {...methods}>
-      <form className="space-y-4" onSubmit={methods.handleSubmit(onSubmit)}>
+      <form
+        className="space-y-4 sm:space-y-2"
+        onSubmit={methods.handleSubmit(onSubmit)}
+      >
         <DateField label="Date" name="date" />
         <div>
-          <label htmlFor="category" className="block mb-1 text-sky-950 text-md">
+          <label htmlFor="category" className="block mb-1 text-black text-md">
             Category:
           </label>
           <select
@@ -92,13 +94,9 @@ const onSubmit = (data: TTransactionSchema) => {
           name="recipientAccountNo"
         />
         <InputField type="number" name="amount" label="Amount (₦)" />
-        <Button
-          className="bg-container"
-        type="submit"
-        disabled={isFileCreated}
-      >
-        Add Transaction
-      </Button>
+        <Button className="bg-container" type="submit" disabled={isFileCreated}>
+          Add Transaction
+        </Button>
       </form>
     </FormProvider>
   );

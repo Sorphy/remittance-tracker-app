@@ -17,11 +17,11 @@ body {
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  max-width: 400px; 
-  background-color: white; 
+  width: 75%;
+  max-width: 400px;
+  background-color: white;
   /* color: white; */
-  padding: 20px; 
-  border-radius: 8px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }

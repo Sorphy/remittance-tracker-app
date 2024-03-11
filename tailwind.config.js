@@ -11,6 +11,10 @@ export default {
       buttonTxtHov: "052E16",
       tableTopText: "#3F6212",
       cancel: "red",
+      error: "#991B1B",
+    },
+    screens: {
+      sm: { max: "639px" },
     },
     extend: {},
   },

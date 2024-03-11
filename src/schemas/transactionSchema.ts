@@ -13,8 +13,7 @@ export const transactionSchema = z.object({
     },
     {
       message:
-        "Sender name must include at least first and last name, with each name having at least 2 characters",
-      path: ["senderName"],
+        "Sender name must include at least first and last name.",
     }
   ),
   senderAccountNo: z
@@ -32,15 +31,14 @@ export const transactionSchema = z.object({
     },
     {
       message:
-        "Recipient name must include at least first and last name, with each name having at least 2 characters",
-      path: ["recipientName"],
+        "Recipient name must include at least first and last name.",
     }
   ),
   recipientAccountNo: z.string().refine((value: string) => /^\d{9,10}$/.test(value), {
       message:
         "Recipient account number must contain only numbers and be between 9 and 10 characters long",
     }),
-  amount: z.number().positive("Amount must be positive"),
+  amount: z.number().positive("Amount must be greater than zero"),
 });
 
 export type TTransactionSchema = z.infer<typeof transactionSchema>;

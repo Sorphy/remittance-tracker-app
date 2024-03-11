@@ -11,16 +11,16 @@ const TransactionContainer: FC<ClassName> = ({ children }) => {
     <div className="fixed flex items-center justify-center w-full h-full bg-container">
       <div className="relative p-4 lg:p-10 rounded-md bg-innerC  max-w-[700px] w-full">
         <div className="flex flex-row justify-between">
-          <h1 className="text-2xl font-bold text-tableTopText mb-4">
+          <h1 className="text-2xl font-bold text-tableTopText mb-4 sm:text-xl">
             Add New Transaction
           </h1>
-          <Link to="/transactions">
-            <Button className="px-6 py-3  bg-container">
+          <Link to="/">
+            <Button className="px-6 py-3  bg-container sm:px-2 sm:text-xs">
               View All Transactions
             </Button>
           </Link>
         </div>
-        <div className=" w-full">{children}</div>
+        <div className=" w-full ">{children}</div>
       </div>
     </div>
   );

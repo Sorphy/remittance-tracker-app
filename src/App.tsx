@@ -10,8 +10,8 @@ const App = () => {
       <ToastContainer />
       <Router>
         <Routes>
-          <Route path="/" element={<AddTransaction />} />
-          <Route path="/transactions" element={<TransactionTable />} />
+          <Route path="/add-transaction" element={<AddTransaction />} />
+          <Route path="/" element={<TransactionTable />} />
         </Routes>
       </Router>
     </>

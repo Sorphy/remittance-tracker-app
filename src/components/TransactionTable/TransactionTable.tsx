@@ -42,6 +42,16 @@ const TransactionTable: FC = () => {
     setIsEditModalOpen(true);
   };
 
+  const handleSaveChanges = (editedTransaction: TTransactionSchema) => {
+    const updatedTransactions = transactions.map((transaction) =>
+      transaction.id === editedTransaction.id ? editedTransaction : transaction
+    );
+    setTransactions(updatedTransactions);
+    setDisplayedTransactions(updatedTransactions);
+    localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
+    setIsEditModalOpen(false);
+  };
+
   const customStyles = {
     rows: {
       style: {
@@ -60,6 +70,7 @@ const TransactionTable: FC = () => {
     {
       name: "S/N",
       cell: (_row, index) => <span>{index + 1}</span>, // Serial number column
+      width: "60px",
     },
     {
       name: "Date",
@@ -97,12 +108,13 @@ const TransactionTable: FC = () => {
       sortable: true,
     },
     {
-      name: "Action", // Action column for editing
+      name: "Edit", // Action column for editing
       cell: (row: TTransactionSchema) => (
         <button onClick={() => handleEditClick(row)}>
           <EditIcon />
         </button>
       ),
+      width: "80px",
     },
   ];
 
@@ -110,10 +122,14 @@ const TransactionTable: FC = () => {
     <div className="p-10">
       <div className="overflow-x-auto">
         <div className="flex justify-between mb-4">
-          <h2 className="text-4xl font-bold text-tableTopText">Transactions</h2>
-          <div className="flex items-center text-tableTopText">
+          <div>
+            <h2 className="text-4xl font-bold text-tableTopText sm:text-xl">
+              Transactions
+            </h2>
+          </div>
+          <div className="flex items-center text-tableTopText sm:text-xs">
             <label htmlFor="categoryFilter" className="mr-2">
-              Filter by Category:
+              Filter by:
             </label>
             <select
               id="categoryFilter"
@@ -127,6 +143,11 @@ const TransactionTable: FC = () => {
             </select>
           </div>
         </div>
+        <Link to="/add-transaction">
+          <h2 className="rounded border-tableTopText  text-tableTopText border  max-w-[200px] sm:max-w-[150px] sm:text-xs sm:p-1 text-center p-2">
+            Add New Transaction
+          </h2>
+        </Link>
         <DataTable
           columns={columns}
           data={displayedTransactions}
@@ -137,17 +158,13 @@ const TransactionTable: FC = () => {
           striped
           customStyles={customStyles}
         />
-        <Link to="/">
-          <h2 className="rounded border-tableTopText  text-tableTopText border-2  max-w-[300px] text-center p-2">
-            Add New Transaction
-          </h2>
-        </Link>
       </div>
       {isEditModalOpen && (
         <EditTransactionModal
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
           transactionData={transactionToEdit}
+          onSave={handleSaveChanges}
         />
       )}
     </div>

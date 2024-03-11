@@ -7,12 +7,14 @@ interface EditTransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
   transactionData: TTransactionSchema | null;
+  onSave: (editedTransaction: TTransactionSchema) => void;
 }
 
 const EditTransactionModal: FC<EditTransactionModalProps> = ({
   isOpen,
   onClose,
   transactionData,
+  onSave,
 }) => {
   const [editedTransaction, setEditedTransaction] =
     useState<TTransactionSchema | null>(transactionData);
@@ -28,26 +30,12 @@ const EditTransactionModal: FC<EditTransactionModalProps> = ({
     });
   };
 
-   const updateLocalStorage = (editedTransaction: TTransactionSchema) => {
-     const transactionsFromStorage = JSON.parse(
-       localStorage.getItem("transactions") || "[]"
-     );
-     const updatedTransactions = transactionsFromStorage.map(
-       (transaction: TTransactionSchema) => {
-         if (transaction.id === editedTransaction.id) {
-           return editedTransaction;
-         }
-         return transaction;
-       }
-     );
-     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
-   };
 
   const handleSave = () => {
     if (!editedTransaction) return;
-    updateLocalStorage(editedTransaction);
+    onSave(editedTransaction);
     console.log("Edited transaction:", editedTransaction);
-    onClose(); 
+    onClose();
   };
 
   return (
