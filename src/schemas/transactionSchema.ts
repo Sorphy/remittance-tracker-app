@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const transactionSchema = z.object({
+  id: z.string(),
   date: z.string().or(z.date()),
   category: z.enum(["personal", "business"]),
   senderName: z.string().refine(

@@ -28,10 +28,26 @@ const EditTransactionModal: FC<EditTransactionModalProps> = ({
     });
   };
 
+   const updateLocalStorage = (editedTransaction: TTransactionSchema) => {
+     const transactionsFromStorage = JSON.parse(
+       localStorage.getItem("transactions") || "[]"
+     );
+     const updatedTransactions = transactionsFromStorage.map(
+       (transaction: TTransactionSchema) => {
+         if (transaction.id === editedTransaction.id) {
+           return editedTransaction;
+         }
+         return transaction;
+       }
+     );
+     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
+   };
+
   const handleSave = () => {
-    // yet to implement the save functionality
+    if (!editedTransaction) return;
+    updateLocalStorage(editedTransaction);
     console.log("Edited transaction:", editedTransaction);
-    onClose(); // Close the modal after saving
+    onClose(); 
   };
 
   return (
