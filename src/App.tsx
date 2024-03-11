@@ -6,7 +6,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/add-transaction" element={<AddTransaction />} />
+        <Route path="/" element={<AddTransaction />} />
         <Route path="/transactions" element={<TransactionTable />} />
         {/* <Route path="/edit" element={<EditTransactionModal isOpen onClose={} transactionData={}  />} /> */}
 
