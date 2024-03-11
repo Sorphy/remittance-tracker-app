@@ -137,7 +137,7 @@ const TransactionTable: FC = () => {
           striped
           customStyles={customStyles}
         />
-        <Link to="/add-transaction">
+        <Link to="/">
           <h2 className="rounded border-tableTopText  text-tableTopText border-2  max-w-[300px] text-center p-2">
             Add New Transaction
           </h2>
