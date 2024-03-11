@@ -10,6 +10,8 @@ import InputField from "./FormField/InputField/InputField";
 import DateField from "./FormField/DateField/DateField";
 import { formattedDate } from "../utils/dateFormat";
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from "react-toastify";
+
 
 const TransactionForm: FC = () => {
     const [isFileCreated, setIsFileCreated] = useState(false);
@@ -52,7 +54,7 @@ const onSubmit = (data: TTransactionSchema) => {
       // Set the file creation status to true
         setIsFileCreated(true);
         console.log(updatedData);
-
+      toast.success("Transaction added successfully");
       // Reset the form
       methods.reset();
     } catch (error) {
