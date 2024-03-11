@@ -3,6 +3,7 @@ import DataTable, { TableColumn } from "react-data-table-component";
 import { TTransactionSchema } from "../../schemas/transactionSchema";
 import { EditIcon } from "../../assets/svg";
 import EditTransactionModal from "../EditTransactionTable/EditTransactionModal";
+import { Link } from "react-router-dom";
 
 const TransactionTable: FC = () => {
   const [transactions, setTransactions] = useState<TTransactionSchema[]>([]);
@@ -136,13 +137,18 @@ const TransactionTable: FC = () => {
           striped
           customStyles={customStyles}
         />
+        <Link to="/add-transaction">
+          <h2 className="rounded border-tableTopText  text-tableTopText border-2  max-w-[300px] text-center p-2">
+            Add New Transaction
+          </h2>
+        </Link>
       </div>
       {isEditModalOpen && (
-      <EditTransactionModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        transactionData={transactionToEdit}
-      />
+        <EditTransactionModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          transactionData={transactionToEdit}
+        />
       )}
     </div>
   );

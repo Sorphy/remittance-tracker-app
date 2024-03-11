@@ -17,6 +17,7 @@ const TransactionForm: FC = () => {
   const methods = useForm<TTransactionSchema>({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
+      id: uuidv4(),
       date: new Date(),
       category: "personal",
       senderName: "",
@@ -37,7 +38,7 @@ const onSubmit = (data: TTransactionSchema) => {
         const currentDate = new Date();
         const formattedCurrentDate = formattedDate(currentDate.toISOString());
       const newData = {
-        id: uuidv4() as string,
+        // id: uuidv4() as string,
         ...data,
         createdAt: formattedCurrentDate,
         updatedAt: formattedCurrentDate,
@@ -89,7 +90,8 @@ const onSubmit = (data: TTransactionSchema) => {
           name="recipientAccountNo"
         />
         <InputField type="number" name="amount" label="Amount (₦)" />
-      <Button
+        <Button
+          className="bg-container"
         type="submit"
         disabled={isFileCreated}
       >
